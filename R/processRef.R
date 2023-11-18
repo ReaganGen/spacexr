@@ -19,6 +19,7 @@ get_cell_type_info <- function(raw.data, cell_types, nUMI, cell_type_names = NUL
 
   get_cell_mean <- function(cell_type) {
     cell_type_data = raw.data[,cell_types == cell_type]
+    cell_type_data = as.data.frame(cell_type_data)
     cell_type_umi = nUMI[cell_types == cell_type]
     normData = sweep(cell_type_data,2,cell_type_umi,`/`)
     return(rowSums(normData) / dim(normData)[2])
