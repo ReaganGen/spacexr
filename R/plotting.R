@@ -18,13 +18,13 @@ plot_doublets <- function(puck, doublets, resultsdir, cell_type_names) {
   my_table2$class = doublets$second_type
   my_table = rbind(my_table, my_table2)
   n_levels = length(cell_type_names)
-  my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
-  if(n_levels > 21)
-    my_pal = pals::polychrome(n_levels)
-  if(n_levels > 36)
-    stop("Plotting currently supports at most 36 cell types as colors")
+  # if(n_levels > 21)
+  #   my_pal = pals::polychrome(n_levels)
+  # if(n_levels > 36)
+  #   stop("Plotting currently supports at most 36 cell types as colors")
   plot <- ggplot2::ggplot(my_table, ggplot2::aes(x=x, y=y)) + ggplot2::geom_point(ggplot2::aes(size = .15, shape=19,color=class)) +
     ggplot2::scale_color_manual(values = my_pal[pres])+ ggplot2::scale_shape_identity() + ggplot2::theme_bw() + ggplot2::scale_size_identity()
   pdf(file.path(resultsdir,"all_doublets.pdf"))
@@ -49,13 +49,13 @@ plot_all_cell_types <- function(results_df, coords, cell_type_names, resultsdir)
   my_table = coords[barcodes,]
   my_table$class = results_df[barcodes,]$first_type
   n_levels = length(levels(my_table$class))
-  my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
-  if(n_levels > 21)
-    my_pal = pals::polychrome(n_levels)
-  if(n_levels > 36)
-    stop("Plotting currently supports at most 36 cell types as colors")
+  # if(n_levels > 21)
+  #   my_pal = pals::polychrome(n_levels)
+  # if(n_levels > 36)
+  #   stop("Plotting currently supports at most 36 cell types as colors")
   plot <- ggplot2::ggplot(my_table, ggplot2::aes(x=x, y=y)) + ggplot2::geom_point(ggplot2::aes(size = .15, shape=19,color=class)) +
     ggplot2::scale_color_manual(values = my_pal[pres])+ ggplot2::scale_shape_identity() + ggplot2::theme_bw() + ggplot2::scale_size_identity()
   pdf(file.path(resultsdir,"all_cell_types.pdf"))
@@ -89,13 +89,13 @@ plot_doublets_type <- function(puck, doublets_base, resultsdir, cell_type_names)
       my_table2$class = doublets$second_type
       my_table = rbind(my_table, my_table2)
       n_levels = length(cell_type_names)
-      my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)]
+      my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
       pres = unique(as.integer(my_table$class))
       pres = pres[order(pres)]
-      if(n_levels > 21)
-        my_pal = pals::polychrome(n_levels)
-      if(n_levels > 36)
-        stop("Plotting currently supports at most 36 cell types as colors")
+      # if(n_levels > 21)
+      #   my_pal = pals::polychrome(n_levels)
+      # if(n_levels > 36)
+      #   stop("Plotting currently supports at most 36 cell types as colors")
       plots[[i]] <- ggplot2::ggplot(my_table, ggplot2::aes(x=x, y=y)) + ggplot2::geom_point(ggplot2::aes(size = .15, shape=19,color=class)) + ggplot2::scale_color_manual(values = my_pal[pres])+ ggplot2::scale_shape_identity() + ggplot2::theme_bw() + ggplot2::scale_size_identity() +ggplot2::ggtitle(cell_type)
     }
     i = i + 1
@@ -324,7 +324,7 @@ plot_doub_occur_stack <- function(doub_occur, resultsdir, cell_type_names) {
   data <- reshape2::melt(doub_occur)
   colnames(data) = c('second_type','first_type','count')
   n_levels = length(cell_type_names)
-  my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   names(my_pal) = cell_type_names
   pres = cell_type_names
   pres = pres[order(pres)]
