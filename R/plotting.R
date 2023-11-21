@@ -18,7 +18,7 @@ plot_doublets <- function(puck, doublets, resultsdir, cell_type_names) {
   my_table2$class = doublets$second_type
   my_table = rbind(my_table, my_table2)
   n_levels = length(cell_type_names)
-  my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)] #createPalette(210,  c("#ff0000", "#00ff00", "#0000ff"))
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
   # if(n_levels > 21)
@@ -49,7 +49,7 @@ plot_all_cell_types <- function(results_df, coords, cell_type_names, resultsdir)
   my_table = coords[barcodes,]
   my_table$class = results_df[barcodes,]$first_type
   n_levels = length(levels(my_table$class))
-  my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)] #createPalette(210,  c("#ff0000", "#00ff00", "#0000ff"))
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
   # if(n_levels > 21)
@@ -89,7 +89,7 @@ plot_doublets_type <- function(puck, doublets_base, resultsdir, cell_type_names)
       my_table2$class = doublets$second_type
       my_table = rbind(my_table, my_table2)
       n_levels = length(cell_type_names)
-      my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+      my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)] # createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) 
       pres = unique(as.integer(my_table$class))
       pres = pres[order(pres)]
       # if(n_levels > 21)
@@ -324,7 +324,7 @@ plot_doub_occur_stack <- function(doub_occur, resultsdir, cell_type_names) {
   data <- reshape2::melt(doub_occur)
   colnames(data) = c('second_type','first_type','count')
   n_levels = length(cell_type_names)
-  my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)] # createPalette(210,  c("#ff0000", "#00ff00", "#0000ff"))
   names(my_pal) = cell_type_names
   pres = cell_type_names
   pres = pres[order(pres)]
