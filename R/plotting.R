@@ -52,6 +52,7 @@ plot_all_cell_types <- function(results_df, coords, cell_type_names, resultsdir)
   my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)] #createPalette(210,  c("#ff0000", "#00ff00", "#0000ff"))
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
+  print("Reagan is good")
   # if(n_levels > 21)
   #   my_pal = pals::polychrome(n_levels)
   # if(n_levels > 36)
@@ -89,7 +90,7 @@ plot_doublets_type <- function(puck, doublets_base, resultsdir, cell_type_names)
       my_table2$class = doublets$second_type
       my_table = rbind(my_table, my_table2)
       n_levels = length(cell_type_names)
-      my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)] # createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) 
+      my_pal = pals::kelly(n_levels+1)[2:(n_levels+1)] # createPalette(210,  c("#ff0000", "#00ff00", "#0000ff"))
       pres = unique(as.integer(my_table$class))
       pres = pres[order(pres)]
       # if(n_levels > 21)
