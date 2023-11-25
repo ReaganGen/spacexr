@@ -25,6 +25,8 @@ plot_doublets <- function(puck, doublets, resultsdir, cell_type_names, color_cou
   print("We need ")
   print(n_levels)
   print("colors!")
+  print("pres value:")
+  print(pres)
   # if(n_levels > 21)
   #   my_pal = pals::polychrome(n_levels)
   # if(n_levels > 36)
@@ -60,6 +62,8 @@ plot_all_cell_types <- function(results_df, coords, cell_type_names, resultsdir,
   print("We need ")
   print(n_levels)
   print("colors!")
+  print("pres value:")
+  print(pres)
   # if(n_levels > 21)
   #   my_pal = pals::polychrome(n_levels)
   # if(n_levels > 36)
@@ -104,6 +108,8 @@ plot_doublets_type <- function(puck, doublets_base, resultsdir, cell_type_names,
       print("We need ")
       print(n_levels)
       print("colors!")
+      print("pres value:")
+      print(pres)
       # if(n_levels > 21)
       #   my_pal = pals::polychrome(n_levels)
       # if(n_levels > 36)
@@ -344,6 +350,8 @@ plot_doub_occur_stack <- function(doub_occur, resultsdir, cell_type_names, color
   names(my_pal) = cell_type_names
   pres = cell_type_names
   pres = pres[order(pres)]
+  print("pres value:")
+  print(pres)
   pdf(file.path(resultsdir,'doublet_stacked_bar.pdf'))
   plot <- ggplot2::ggplot(data, ggplot2::aes(fill=second_type, y=count, x=first_type)) +ggplot2::geom_bar(position="stack", stat="identity") + ggplot2::scale_fill_manual(values = my_pal[pres]) + ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
   invisible(print(plot))
