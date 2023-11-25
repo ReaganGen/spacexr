@@ -6,9 +6,10 @@
 #' @param doublets a dataframe of RCTD results restricted to doublets
 #' @param resultsdir output directory
 #' @param cell_type_names list of cell type names
+#' @param color_counts number of colors needed
 #' @return returns \code{\link{ggplot2}} object
 #' @export
-plot_doublets <- function(puck, doublets, resultsdir, cell_type_names) {
+plot_doublets <- function(puck, doublets, resultsdir, cell_type_names, color_counts) {
   barcodes = rownames(doublets)
   my_table = puck@coords[barcodes,]
   my_table$class = doublets$first_type
@@ -18,9 +19,12 @@ plot_doublets <- function(puck, doublets, resultsdir, cell_type_names) {
   my_table2$class = doublets$second_type
   my_table = rbind(my_table, my_table2)
   n_levels = length(cell_type_names)
-  my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
+  print("We need ")
+  print(n_level)
+  print("colors!")
   # if(n_levels > 21)
   #   my_pal = pals::polychrome(n_levels)
   # if(n_levels > 36)
@@ -42,17 +46,20 @@ plot_doublets <- function(puck, doublets, resultsdir, cell_type_names) {
 #' @param results_df a dataframe of RCTD results (see \code{\link{gather_results}})
 #' @param resultsdir output directory
 #' @param cell_type_names list of cell type names
+#' @param color_counts number of colors needed
 #' @return returns \code{\link{ggplot2}} object
 #' @export
-plot_all_cell_types <- function(results_df, coords, cell_type_names, resultsdir) {
+plot_all_cell_types <- function(results_df, coords, cell_type_names, resultsdir, color_counts) {
   barcodes = rownames(results_df[results_df$spot_class != "reject" & results_df$first_type %in% cell_type_names,])
   my_table = coords[barcodes,]
   my_table$class = results_df[barcodes,]$first_type
   n_levels = length(levels(my_table$class))
-  my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
-  print("Reagan is good")
+  print("We need ")
+  print(n_level)
+  print("colors!")
   # if(n_levels > 21)
   #   my_pal = pals::polychrome(n_levels)
   # if(n_levels > 36)
@@ -74,8 +81,9 @@ plot_all_cell_types <- function(results_df, coords, cell_type_names, resultsdir)
 #' @param doublets_base a dataframe of RCTD results restricted to doublets
 #' @param resultsdir output directory
 #' @param cell_type_names list of cell type names
+#' @param color_counts number of colors
 #' @export
-plot_doublets_type <- function(puck, doublets_base, resultsdir, cell_type_names) {
+plot_doublets_type <- function(puck, doublets_base, resultsdir, cell_type_names, color_counts) {
   plots <- vector(mode = "list", length = length(cell_type_names))
   i = 1
   for (cell_type in cell_type_names) {
@@ -90,9 +98,12 @@ plot_doublets_type <- function(puck, doublets_base, resultsdir, cell_type_names)
       my_table2$class = doublets$second_type
       my_table = rbind(my_table, my_table2)
       n_levels = length(cell_type_names)
-      my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+      my_pal = createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
       pres = unique(as.integer(my_table$class))
       pres = pres[order(pres)]
+      print("We need ")
+      print(n_level)
+      print("colors!")
       # if(n_levels > 21)
       #   my_pal = pals::polychrome(n_levels)
       # if(n_levels > 36)
@@ -317,15 +328,19 @@ plot_weights_doublet <- function(cell_type_names, puck, resultsdir, weights_doub
 #' @param doub_occur a table of occurances of doublets
 #' @param resultsdir output directory
 #' @param cell_type_names list of cell type names
+#' @param color_counts number of colors
 #' @return returns \code{\link{ggplot2}} object
 #' @export
-plot_doub_occur_stack <- function(doub_occur, resultsdir, cell_type_names) {
+plot_doub_occur_stack <- function(doub_occur, resultsdir, cell_type_names, color_counts) {
   cell_type_names <- unlist(lapply(cell_type_names, function(x) paste0('celltype_',x)))
   rownames(doub_occur) <- cell_type_names; colnames(doub_occur) <- cell_type_names;
   data <- reshape2::melt(doub_occur)
   colnames(data) = c('second_type','first_type','count')
   n_levels = length(cell_type_names)
-  my_pal = createPalette(210,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  print("We need ")
+  print(n_level)
+  print("colors!")
+  my_pal = createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   names(my_pal) = cell_type_names
   pres = cell_type_names
   pres = pres[order(pres)]
