@@ -19,18 +19,13 @@ plot_doublets <- function(puck, doublets, resultsdir, cell_type_names, color_cou
   my_table2$class = doublets$second_type
   my_table = rbind(my_table, my_table2)
   n_levels = length(cell_type_names)
-  my_pal = createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = unname(createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff"))) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
-  print("We need ")
-  print(n_levels)
-  print("colors!")
-  print("pres value:")
-  print(pres)
-  # if(n_levels > 21)
-  #   my_pal = pals::polychrome(n_levels)
-  # if(n_levels > 36)
-  #   stop("Plotting currently supports at most 36 cell types as colors")
+
+  if(n_levels > color_counts){
+    stop(paste("There are ", as.character(n_levels), "types, provide more color counts."))
+    }
   plot <- ggplot2::ggplot(my_table, ggplot2::aes(x=x, y=y)) + ggplot2::geom_point(ggplot2::aes(size = .15, shape=19,color=class)) +
     ggplot2::scale_color_manual(values = my_pal[pres])+ ggplot2::scale_shape_identity() + ggplot2::theme_bw() + ggplot2::scale_size_identity()
   pdf(file.path(resultsdir,"all_doublets.pdf"))
@@ -56,18 +51,14 @@ plot_all_cell_types <- function(results_df, coords, cell_type_names, resultsdir,
   my_table = coords[barcodes,]
   my_table$class = results_df[barcodes,]$first_type
   n_levels = length(levels(my_table$class))
-  my_pal = createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = unname(createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff"))) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
-  print("We need ")
-  print(n_levels)
-  print("colors!")
-  print("pres value:")
-  print(pres)
-  # if(n_levels > 21)
-  #   my_pal = pals::polychrome(n_levels)
-  # if(n_levels > 36)
-  #   stop("Plotting currently supports at most 36 cell types as colors")
+
+  if(n_levels > color_counts){
+    stop(paste("There are ", as.character(n_levels), "types, provide more color counts."))
+  }
+
   plot <- ggplot2::ggplot(my_table, ggplot2::aes(x=x, y=y)) + ggplot2::geom_point(ggplot2::aes(size = .15, shape=19,color=class)) +
     ggplot2::scale_color_manual(values = my_pal[pres])+ ggplot2::scale_shape_identity() + ggplot2::theme_bw() + ggplot2::scale_size_identity()
   pdf(file.path(resultsdir,"all_cell_types.pdf"))
@@ -102,18 +93,14 @@ plot_doublets_type <- function(puck, doublets_base, resultsdir, cell_type_names,
       my_table2$class = doublets$second_type
       my_table = rbind(my_table, my_table2)
       n_levels = length(cell_type_names)
-      my_pal = createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+      my_pal = unname(createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff"))) #pals::kelly(n_levels+1)[2:(n_levels+1)]
       pres = unique(as.integer(my_table$class))
       pres = pres[order(pres)]
-      print("We need ")
-      print(n_levels)
-      print("colors!")
-      print("pres value:")
-      print(pres)
-      # if(n_levels > 21)
-      #   my_pal = pals::polychrome(n_levels)
-      # if(n_levels > 36)
-      #   stop("Plotting currently supports at most 36 cell types as colors")
+
+      if(n_levels > color_counts){
+        stop(paste("There are ", as.character(n_levels), "types, provide more color counts."))
+      }
+
       plots[[i]] <- ggplot2::ggplot(my_table, ggplot2::aes(x=x, y=y)) + ggplot2::geom_point(ggplot2::aes(size = .15, shape=19,color=class)) + ggplot2::scale_color_manual(values = my_pal[pres])+ ggplot2::scale_shape_identity() + ggplot2::theme_bw() + ggplot2::scale_size_identity() +ggplot2::ggtitle(cell_type)
     }
     i = i + 1
@@ -346,12 +333,15 @@ plot_doub_occur_stack <- function(doub_occur, resultsdir, cell_type_names, color
   print("We need ")
   print(n_levels)
   print("colors!")
-  my_pal = createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = unname(createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff"))) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   names(my_pal) = cell_type_names
   pres = cell_type_names
   pres = pres[order(pres)]
-  print("pres value:")
-  print(pres)
+
+  if(n_levels > color_counts){
+    stop(paste("There are ", as.character(n_levels), "types, provide more color counts."))
+  }
+
   pdf(file.path(resultsdir,'doublet_stacked_bar.pdf'))
   plot <- ggplot2::ggplot(data, ggplot2::aes(fill=second_type, y=count, x=first_type)) +ggplot2::geom_bar(position="stack", stat="identity") + ggplot2::scale_fill_manual(values = my_pal[pres]) + ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
   invisible(print(plot))
