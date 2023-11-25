@@ -23,7 +23,7 @@ plot_doublets <- function(puck, doublets, resultsdir, cell_type_names, color_cou
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
   print("We need ")
-  print(n_level)
+  print(n_levels)
   print("colors!")
   # if(n_levels > 21)
   #   my_pal = pals::polychrome(n_levels)
@@ -58,7 +58,7 @@ plot_all_cell_types <- function(results_df, coords, cell_type_names, resultsdir,
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
   print("We need ")
-  print(n_level)
+  print(n_levels)
   print("colors!")
   # if(n_levels > 21)
   #   my_pal = pals::polychrome(n_levels)
@@ -102,7 +102,7 @@ plot_doublets_type <- function(puck, doublets_base, resultsdir, cell_type_names,
       pres = unique(as.integer(my_table$class))
       pres = pres[order(pres)]
       print("We need ")
-      print(n_level)
+      print(n_levels)
       print("colors!")
       # if(n_levels > 21)
       #   my_pal = pals::polychrome(n_levels)
@@ -338,7 +338,7 @@ plot_doub_occur_stack <- function(doub_occur, resultsdir, cell_type_names, color
   colnames(data) = c('second_type','first_type','count')
   n_levels = length(cell_type_names)
   print("We need ")
-  print(n_level)
+  print(n_levels)
   print("colors!")
   my_pal = createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff")) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   names(my_pal) = cell_type_names
