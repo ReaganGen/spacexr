@@ -19,7 +19,7 @@ plot_doublets <- function(puck, doublets, resultsdir, cell_type_names, color_cou
   my_table2$class = doublets$second_type
   my_table = rbind(my_table, my_table2)
   n_levels = length(cell_type_names)
-  my_pal = unname(createPalette(color_counts,  c("#ff0000", "#00ff00", "#0000ff"))) #pals::kelly(n_levels+1)[2:(n_levels+1)]
+  my_pal = unname(createPalette(color_counts,  c("#ff0000", "#cfff00", "#EDECF2"))) #pals::kelly(n_levels+1)[2:(n_levels+1)]
   pres = unique(as.integer(my_table$class))
   pres = pres[order(pres)]
 
